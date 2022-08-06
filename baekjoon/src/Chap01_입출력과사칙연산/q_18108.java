@@ -8,5 +8,5 @@ public class q_18108 {
         int y = sc.nextInt();
         System.out.println(y - 543);
         sc.close();
-    }s
+    }
 }
