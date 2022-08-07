@@ -1,4 +1,4 @@
-package Chap08_기본수학1;
+package Chap07_기본수학1;
 
 import java.util.*;
 import java.io.*;
