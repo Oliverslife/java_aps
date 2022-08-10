@@ -26,7 +26,7 @@ public class q2447 {
 
         else {
             result = new boolean[n][n];			//answer
-            unit = star(n/3);					//sub unit
+            unit = star(n/3);				//sub unit
             blank = new boolean[unit.length][unit.length];
 
             for(int i=0; i<n; i+=unit.length) {
@@ -41,7 +41,6 @@ public class q2447 {
                     }
                 }
             }
-
         }
         return result;
     }
