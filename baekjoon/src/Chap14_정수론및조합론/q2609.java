@@ -14,6 +14,8 @@ public class q2609 {
 
         int a = sc.nextInt();
         int b = sc.nextInt();
+
+        sc.close();
         int c = rec(a, b);
         int d = a * b / c;
 

@@ -1,4 +1,4 @@
-package SSAFY_IM준비;
+package ETC;
 
 import java.io.*;
 import java.util.StringTokenizer;
