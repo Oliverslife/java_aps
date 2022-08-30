@@ -18,6 +18,8 @@ public class q15650 {
             return;
         }
 
+
+
         for(int i=idx; i<n; i++) {
             arr[depth] = i + 1;
             dfs(n, m, depth + 1, i+1);

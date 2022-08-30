@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-public class q15663 {
+public class q15666 {
 
     static int n, m;
     static int[] arr;
@@ -21,23 +21,18 @@ public class q15663 {
     static StringBuilder sb = new StringBuilder();
     static Set<String> filter = new LinkedHashSet<>();
 
-    static void check(int depth) {
+    static void check(int depth, int idx) {
         if(depth == m) {
-            for(int x : ansbox) {
+            for(int x : ansbox)
                 sb.append(x + " ");
-            }
             filter.add(sb.toString());
             sb.setLength(0);
             return;
         }
 
-        for(int i=0; i<n; i++) {
-            if(!visited[i]) {
-                visited[i] = true;
-                ansbox[depth] = arr[i];
-                check(depth + 1);
-                visited[i] = false;
-            }
+        for(int i=idx; i<n; i++) {
+            ansbox[depth] = arr[i];
+            check(depth + 1, i);
         }
     }
 
@@ -56,7 +51,7 @@ public class q15663 {
             arr[i] = Integer.parseInt(st.nextToken());
         Arrays.sort(arr);
 
-        check(0);
+        check(0, 0);
 
         for(String str : filter)
             sb.append(str + "\n");

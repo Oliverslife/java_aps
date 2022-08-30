@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-public class q15663 {
+public class q15665 {
 
     static int n, m;
     static int[] arr;
@@ -23,21 +23,16 @@ public class q15663 {
 
     static void check(int depth) {
         if(depth == m) {
-            for(int x : ansbox) {
+            for(int x : ansbox)
                 sb.append(x + " ");
-            }
             filter.add(sb.toString());
             sb.setLength(0);
             return;
         }
 
         for(int i=0; i<n; i++) {
-            if(!visited[i]) {
-                visited[i] = true;
-                ansbox[depth] = arr[i];
-                check(depth + 1);
-                visited[i] = false;
-            }
+            ansbox[depth] = arr[i];
+            check(depth + 1);
         }
     }
 
