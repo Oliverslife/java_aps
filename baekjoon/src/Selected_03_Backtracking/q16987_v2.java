@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class q16987 {
+public class q16987_v2 {
     static int n, ans = 0;
     static List<Egg> eggs = new ArrayList<>();
     static class Egg {
@@ -15,29 +15,29 @@ public class q16987 {
             this.dmg = dmg;
         }
     }
-    static void eggBreak(int now, int sum) {
-        if(now == n)
+    static void eggBreak(int now) {
+        if(now == n) {
+            int cnt = 0;
+            for(int i=0; i<n; i++)
+                if(eggs.get(i).hp <= 0)
+                    cnt++;
+            ans = Math.max(ans, cnt);
             return;
+        }
 
+        boolean noTarget = true;
         for(int i=0; i<n; i++) {
-            if(i == now || eggs.get(i).hp <= 0)
+            if(i == now || eggs.get(i).hp <= 0 || eggs.get(now).hp <= 0)
                 continue;
-            if(eggs.get(now).hp <= 0) {
-                eggBreak(now + 1, sum);
-                return;
-            }
+            noTarget = false;
             eggs.get(now).hp -= eggs.get(i).dmg;
             eggs.get(i).hp -= eggs.get(now).dmg;
-            int cnt = 0;
-            if(eggs.get(i).hp <= 0)
-                cnt++;
-            if(eggs.get(now).hp <= 0)
-                cnt++;
-            ans = Math.max(ans, sum + cnt);
-            eggBreak(now + 1, sum + cnt);
+            eggBreak(now + 1);
             eggs.get(now).hp += eggs.get(i).dmg;
             eggs.get(i).hp += eggs.get(now).dmg;
         }
+        if(noTarget)
+            eggBreak(now + 1);
     }
 
     public static void main(String[] args) throws IOException {
@@ -50,7 +50,7 @@ public class q16987 {
             st = new StringTokenizer(br.readLine());
             eggs.add(new Egg(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
         }
-        eggBreak(0, 0);
+        eggBreak(0);
         bw.write(ans + "");
         bw.flush();
         bw.close();
