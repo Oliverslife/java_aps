@@ -3,30 +3,28 @@ package Selected_03_Backtracking;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class q14712_solving {
+public class q14712 {
     static int n, m, ans = 0;
-    static int[][] map;
-    static void dfs(int r, int c, int cnt) {
-        if(c == m - 1) {
-            c = 0;
-            r++;
-            dfs(r, c, cnt);
+    static boolean[][] map;
+    static void dfs(int r, int c) {
+        if(r == n) {
+            for(int i=0; i<=n-2; i++)
+                for(int j=0; j<=m-2; j++) {
+                    if(map[i][j] && map[i][j+1] && map[i+1][j] && map[i+1][j+1])
+                        return;
+                }
+            ans++;
+            return;
         }
-        if(r == n - 1) {
 
-        }
+        int tc = c + 1 == m ? 0 : c + 1;
+        int tr = tc == 0 ? r + 1 : r;
 
-        int y = cnt / m + 1;
-        int x = cnt % m + 1;
+        map[r][c] = true;
+        dfs(tr, tc);
 
-        if(map[y-1][x] == 1 && map[y][x-1] == 1 && map[y-1][x-1] == 1)
-            dfs(cnt + 1);
-        else {
-            dfs(cnt + 1);
-            map[y][x] = 1;
-            dfs(cnt + 1);
-            map[y][x] = 0;
-        }
+        map[r][c] = false;
+        dfs(tr, tc);
 
     }
 
@@ -36,8 +34,8 @@ public class q14712_solving {
         StringTokenizer st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-        map = new int[n+1][m+1];
-        dfs(0);
+        map = new boolean[n][m];
+        dfs(0, 0);
         bw.write(ans + "");
         bw.flush();
         bw.close();
