@@ -1,4 +1,4 @@
-package ETC;
+package Selected_04_BruteForce;
 
 import java.io.*;
 import java.util.StringTokenizer;
