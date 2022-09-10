@@ -7,12 +7,8 @@ public class q14712 {
     static int n, m, ans = 0;
     static boolean[][] map;
     static void dfs(int r, int c) {
+
         if(r == n) {
-            for(int i=0; i<=n-2; i++)
-                for(int j=0; j<=m-2; j++) {
-                    if(map[i][j] && map[i][j+1] && map[i+1][j] && map[i+1][j+1])
-                        return;
-                }
             ans++;
             return;
         }
@@ -20,12 +16,16 @@ public class q14712 {
         int tc = c + 1 == m ? 0 : c + 1;
         int tr = tc == 0 ? r + 1 : r;
 
+        if(r-1>=0 && c-1>=0 &&  map[r-1][c] && map[r][c-1] && map[r-1][c-1]) {
+            dfs(tr, tc);
+            return;
+        }
+
         map[r][c] = true;
         dfs(tr, tc);
 
         map[r][c] = false;
         dfs(tr, tc);
-
     }
 
     public static void main(String[] args) throws IOException {
