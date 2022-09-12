@@ -3,7 +3,7 @@ package Selected_03_Backtracking;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class q1062_failed {
+public class q1062 {
     static int n, k, ans = 0;
     static boolean[] visited = new boolean[26];
     static String[] data;
@@ -13,7 +13,7 @@ public class q1062_failed {
             for(int i=0; i<n; i++) {        //제시된 단어를 하나씩 확인
                 boolean checker = true;
                 for(int j=0; j<data[i].length(); j++)       //단어를 한 글자씩 확인
-                    if(!visited[data[j].charAt(j) - 'a']) { //해당하는 글자를 배우지 않았다면
+                    if(!visited[data[i].charAt(j) - 'a']) { //해당하는 글자를 배우지 않았다면
                         checker = false;    //단어를 읽을 수 없음
                         break;              //확인 종료
                     }
@@ -27,7 +27,7 @@ public class q1062_failed {
         for(int i=start; i<26; i++)
             if(!visited[i]) {
                 visited[i] = true;
-                dfs(depth + 1, i);
+                dfs(depth + 1, i+1);
                 visited[i] = false;
             }
 

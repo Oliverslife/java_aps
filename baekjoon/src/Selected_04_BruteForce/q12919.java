@@ -2,14 +2,12 @@ package Selected_04_BruteForce;
 
 import java.io.*;
 
-public class q12919_solving {
+public class q12919 {
     static String S;
     static boolean checker = false;
     static StringBuilder sb;
 
     static void dfs(String T) {
-        if(T.charAt(0) == 'A' && T.charAt(T.length() - 1) == 'B')
-            return;
 
         if(S.length() == T.length()) {
             if(S.equals(T))
