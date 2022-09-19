@@ -48,7 +48,7 @@ public class q2178 {
             visited[tmp.r][tmp.c] = true;
 
             for(int i=0; i<4; i++) {
-               tr = tmp.r + dr[i];
+                tr = tmp.r + dr[i];
                 tc = tmp.c + dc[i];
                 if(is_in(tr, tc) && !visited[tr][tc] && map[tr][tc] == 1) {
                     visited[tr][tc] = true;
