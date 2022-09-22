@@ -5,7 +5,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class q5547_solving {
+public class q5547 {
 
     static int w, h;
 
@@ -33,12 +33,8 @@ public class q5547_solving {
             for(int j=1; j<=w; j++) {
                 cnt = Integer.parseInt(st.nextToken());
                 map[i][j] = cnt;
-                if(cnt == 1)
-                    visited[i][j] = true;
             }
         }
-
-        boolean[][] origin = visited;   //건물에 visited 처리한 배열.
 
         // 일단 건물 내부공간을 좀 구분해야겠다.
 
@@ -49,50 +45,44 @@ public class q5547_solving {
         int tr, tc;
         while(!q.isEmpty()) {
             int[] tmp = q.poll();
-            map[tmp[0]][tmp[1]] = 5;        //바깥 공간을 2로 채우면서 구분해줌
+            map[tmp[0]][tmp[1]] = 2;        //바깥 공간을 2로 채우면서 구분해줌
 
-            for(int i=0; i<4; i++) {
-                tr = tmp[0] + drc[i][0];
-                tc = tmp[1] + drc[i][1];
+            for(int i=0; i<6; i++) {
+                if(tmp[0] % 2 == 1) {
+                    tr = tmp[0] + o_drc[i][0];
+                    tc = tmp[1] + o_drc[i][1];
+                }
+                else {
+                    tr = tmp[0] + e_drc[i][0];
+                    tc = tmp[1] + e_drc[i][1];
+                }
 
-                if(is_in(tr, tc) && !visited[tr][tc]) {
+                if(is_in(tr, tc) && !visited[tr][tc] && map[tr][tc] == 0) {
                     visited[tr][tc] = true;
                     q.offer(new int[] {tr, tc});
                 }
             }
         }
 
-//        for(int i=0; i<h+2; i++) {
-//            for (int j = 0; j < w + 2; j++) {
-//                System.out.print(map[i][j] + " ");
-//            }
-//            System.out.println();
-//        }
-
-        visited = origin;
+        visited = new boolean[h+2][w+2];
         q.offer(new int[] {0, 0});
         visited[0][0] = true;
 
         cnt = 0;
+
         while(!q.isEmpty()) {
             int[] tmp = q.poll();
-
             for(int i=0; i<6; i++) {            //외벽 확인
-                if(tmp[1] % 2 == 1) {
+                if(tmp[0] % 2 == 1) {
                     tr = tmp[0] + o_drc[i][0];
-                    tc = tmp[1] = o_drc[i][1];
+                    tc = tmp[1] + o_drc[i][1];
                 }
                 else {
                     tr = tmp[0] + e_drc[i][0];
-                    tc = tmp[1] = e_drc[i][1];
+                    tc = tmp[1] + e_drc[i][1];
                 }
+
                 cnt += is_in(tr, tc) && map[tr][tc] == 1 ? 1 : 0;
-
-            }
-
-            for(int i=0; i<4; i++) {
-                tr = tmp[0] + drc[i][0];
-                tc = tmp[1] + drc[i][1];
 
                 if(is_in(tr, tc) && !visited[tr][tc] && map[tr][tc] == 2) {
                     visited[tr][tc] = true;
@@ -100,6 +90,7 @@ public class q5547_solving {
                 }
             }
         }
+
 
         bw.write(cnt + "");
         bw.flush();
