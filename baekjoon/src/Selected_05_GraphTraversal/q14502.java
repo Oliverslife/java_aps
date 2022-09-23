@@ -7,8 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.*;
 
-public class q14502_solving {
-    static int test = 0;
+public class q14502 {
     static int n, m, ans = Integer.MIN_VALUE;
     static List<Point> virus;
 
@@ -24,25 +23,40 @@ public class q14502_solving {
         return r >= 0 && c >= 0 && r < n && c < m;
     }
 
-    static void dfs(int depth, int[][] arr) {
+    static void dfs(int r, int c, int depth, int[][] arr) {
         if(depth == 3) {
             bfs(arr);      //벽 3개 세우고 넘기기
-            System.out.println(test++);
             return;
         }
 
-        for(int i=0; i<n; i++) {
-            for(int j=0; j<m; j++) {
-                if(arr[i][j] == 0) {
-                    arr[i][j] = 1;
-                    dfs(depth + 1, arr);
-                    arr[i][j] = 0;
-                }
-            }
+//        for(int i=0; i<n; i++)
+//        	for(int j=0; j<m; j++)
+//        		if(arr[i][j] == 0) {
+//        			arr[i][j] = 1;
+//        			dfs(i, j, depth + 1, arr);
+//        			arr[i][j] = 0;
+//        		}
+
+        r += c == m ? 1 : 0;
+        c -= c == m ? m : 0;
+        if(r>=n) return;
+
+        if(arr[r][c] == 0) {
+            arr[r][c] = 1;
+            dfs(r, c + 1, depth + 1, arr);
+            arr[r][c] = 0;
         }
+        dfs(r, c + 1, depth, arr);
+
     }
 
-    static void bfs(int[][] arr) {
+    static void bfs(int[][] origin) {
+
+        int[][] arr = new int[n][m];
+
+        for(int i=0; i<n; i++)
+            for(int j=0; j<m; j++)
+                arr[i][j] = origin[i][j];
 
         int[][] drc = { {-1, 0}, {1, 0}, {0, -1}, {0, 1} };
 
@@ -100,7 +114,7 @@ public class q14502_solving {
             }
         }
 
-        dfs(0, map);
+        dfs(0, 0, 0, map);
 
         bw.write(ans + "");
 
