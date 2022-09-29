@@ -16,10 +16,15 @@
 //            ans = Math.max(ans, now);
 //            return;
 //        }
-//        //괄호 무시하고 순차계산한 경우
-//        dfs(depth + 1, do_Op(now, nums.get(depth + 1), ops.get(depth)));
+//        //괄호 고려없이 순차진행 [1 > 2 순서]
+//        int tmp = do_Op(now, nums.get(depth + 1), ops.get(depth));  //지금 값과 다음 값을 연산
+//        dfs(depth + 1, tmp);
 //
-//        dfs(depth + 1, )
+//        //다음 연산을 미리 계산 후 현재 값과 연산 [2 > 1 순서]
+//        if(depth < nums.size()) {
+//            tmp = do_Op(nums.get(depth + 1), nums.get(depth + 2), ops.get(depth + 1));
+//            dfs(depth + 2, do_Op(now, tmp, ops.get(depth)));
+//        }
 //
 //    }
 //
@@ -48,7 +53,8 @@
 //            else
 //                nums.add(Character.getNumericValue(ch));
 //        }
-//        dfs(0, nums.get(0));
+//
+//        dfs(1, nums.get(0));
 //
 //        bw.write(ans + "");
 //        bw.flush();
