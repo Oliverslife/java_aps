@@ -66,6 +66,7 @@ public class s1249 {
                 p = pq.poll();
 
                 if(p.r == n-1 && p.c == n-1) {
+//                    ans = Math.min(ans, p.ans);
                     ans = p.ans;
                     break;
                 }
