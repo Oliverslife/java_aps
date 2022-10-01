@@ -1,9 +1,9 @@
-package Selected_06_MST;
+package Selected_06_1_MST;
 
 import java.io.*;
 import java.util.*;
 
-public class q14621_Kruskal {
+public class q1774_Kruskal {
     static int V;
     static int[] p;
 
@@ -29,9 +29,10 @@ public class q14621_Kruskal {
     }
 
     static class Edge implements Comparable<Edge> {
-        int from, to, weight;
+        int from, to;
+        double weight;
 
-        public Edge(int from, int to, int weight) {
+        public Edge(int from, int to, double weight) {
             this.from = from;
             this.to = to;
             this.weight = weight;
@@ -39,8 +40,20 @@ public class q14621_Kruskal {
 
         @Override
         public int compareTo(Edge o) {
-            return this.weight - o.weight;
+            return Double.compare(this.weight, o.weight);
         }
+    }
+
+    static class Point {
+        int r, c;
+        public Point(int r, int c) {
+            this.r = r;
+            this.c = c;
+        }
+    }
+
+    static double dist(Point A, Point B) {
+        return Math.sqrt(Math.pow(A.r - B.r, 2) + Math.pow(A.c - B.c, 2));
     }
 
     public static void main(String[] args) throws IOException {
@@ -48,42 +61,45 @@ public class q14621_Kruskal {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
         V = Integer.parseInt(st.nextToken());
-        int E = Integer.parseInt(st.nextToken());
-
-        boolean[] univ = new boolean[V];
-        st = new StringTokenizer(br.readLine());
-        for(int i=0; i<V; i++)
-            univ[i] = st.nextToken().equals("M") ? true : false;
-
-        List<Edge> elist = new ArrayList<>();
-        for(int i=0; i<E; i++) {
-            st = new StringTokenizer(br.readLine());
-            int start = Integer.parseInt(st.nextToken()) - 1;
-            int end = Integer.parseInt(st.nextToken()) - 1;
-            int weight = Integer.parseInt(st.nextToken());
-            if(univ[start] == univ[end])
-                continue;
-            elist.add(new Edge(start, end, weight));
-        }
-
-        Collections.sort(elist);
+        int linked = Integer.parseInt(st.nextToken());
         make();
 
-        long ans = 0;
+        List<Point> gods = new ArrayList<>();
+        for(int i=0; i<V; i++) {
+            st = new StringTokenizer(br.readLine());
+            gods.add(new Point(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
+        }
+        for(int i=0; i<linked; i++) {
+            st = new StringTokenizer(br.readLine());
+            union(Integer.parseInt(st.nextToken()) - 1, Integer.parseInt(st.nextToken()) - 1);
+        }
+
+        List<Edge> elist = new ArrayList<>();
+        for(int i=0; i<V-1; i++)
+            for(int j=i+1; j<V; j++) {
+                elist.add(new Edge(i, j, dist(gods.get(i), gods.get(j))));
+            }
+
+        Collections.sort(elist);
+
+
+        Queue<Double> record = new PriorityQueue<>(Comparator.reverseOrder());
+
+        double ans = 0;
         int cnt = 0;
         for(Edge e : elist) {
             if(union(e.from, e.to)) {
                 ans += e.weight;
-                if(++cnt == V - 1)
+                record.offer(e.weight);
+                if(++cnt == V-1-linked)
                     break;
             }
         }
-        ans = cnt == V - 1 ? ans : -1;
-        bw.write(ans + "");
+
+        bw.write(String.format("%.2f", ans));
         bw.flush();
         bw.close();
         br.close();
-
-
     }
+
 }

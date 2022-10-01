@@ -1,4 +1,4 @@
-package Selected_06_MST;
+package Selected_06_1_MST;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -7,7 +7,7 @@ import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class q1197_Kruskal {
+public class q1922_Kruskal {
 
     static int[] parents;
     static int V, E;
@@ -58,9 +58,8 @@ public class q1197_Kruskal {
         int cnt;
         long ans;
 
-        st = new StringTokenizer(br.readLine());
-        V = Integer.parseInt(st.nextToken());
-        E = Integer.parseInt(st.nextToken());
+        V = Integer.parseInt(br.readLine());
+        E = Integer.parseInt(br.readLine());
 
         edgelist = new Edge[E];
         for(int i=0; i<E; i++) {

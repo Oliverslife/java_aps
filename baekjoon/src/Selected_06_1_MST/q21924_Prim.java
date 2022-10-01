@@ -1,16 +1,12 @@
-package Selected_06_MST;
+package Selected_06_1_MST;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class q16398_Prim {
+public class q21924_Prim {
 
     static class Node implements Comparable<Node> {
         int no, weight;
@@ -32,51 +28,56 @@ public class q16398_Prim {
             return this.weight - o.weight;
         }
     }
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int V = Integer.parseInt(st.nextToken());
+        int E = Integer.parseInt(st.nextToken());
 
-        int n = Integer.parseInt(br.readLine());
-        int[][] map = new int[n][n];
-        for(int i=0; i<n; i++) {
+        Node[] nodes = new Node[V];
+        long total = 0;
+        for(int i=0; i<E; i++) {
             st = new StringTokenizer(br.readLine());
-            for(int j=0; j<n; j++)
-                map[i][j] = Integer.parseInt(st.nextToken());
+            int from = Integer.parseInt(st.nextToken()) - 1;
+            int to = Integer.parseInt(st.nextToken()) - 1;
+            int weight = Integer.parseInt(st.nextToken());
+            total += weight;
+            nodes[from] = new Node(to, weight, nodes[from]);
+            nodes[to] = new Node(from, weight, nodes[to]);
         }
 
         Queue<Node> pq = new PriorityQueue<>();
         pq.offer(new Node(0, 0));
-        boolean[] visited = new boolean[n];
-        int[] min = new int[n];
-        Arrays.fill(min, Integer.MAX_VALUE);
+        boolean[] visited = new boolean[V];
+        long[] min = new long[V];
+        Arrays.fill(min, Long.MAX_VALUE);
         min[0] = 0;
 
         int cnt = 0;
         long ans = 0;
 
         while(!pq.isEmpty()) {
-            Node now = pq.poll();
-            if(visited[now.no])
+            Node n = pq.poll();
+            if(visited[n.no])
                 continue;
-            visited[now.no] = true;
-            ans += now.weight;
-            if(++cnt == n)
+            visited[n.no] = true;
+            ans += n.weight;
+            if(++cnt == V)
                 break;
 
-            for(int i=0; i<n; i++) {
-                if(map[now.no][i] != 0 && !visited[i] && min[i] > map[now.no][i]) {
-                    min[i] = map[now.no][i];
-                    pq.offer(new Node(i, map[now.no][i]));
+            for(Node tmp = nodes[n.no]; tmp != null; tmp = tmp.next) {
+                if(!visited[tmp.no] && min[tmp.no] > tmp.weight) {
+                    min[tmp.no] = tmp.weight;
+                    pq.offer(new Node(tmp.no, tmp.weight));
                 }
             }
         }
-
+        ans = cnt == V ? total - ans : -1;
         bw.write(ans + "");
         bw.flush();
         bw.close();
         br.close();
-
     }
+
 }

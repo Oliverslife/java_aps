@@ -1,4 +1,4 @@
-package Selected_06_MST;
+package Selected_06_1_MST;
 
 import java.io.*;
 import java.util.*;

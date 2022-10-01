@@ -1,19 +1,23 @@
-package Selected_06_MST;
+package Selected_06_1_MST;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class q21924_Kruskal {
+public class q16398_Kruskal {
 
     static int[] p;
-    static int V;
+    static int n;
 
     static void makeSet() {
-        p = new int[V];
-        for(int i=0; i<V; i++)
+        p = new int[n];
+        for(int i=0; i<n; i++)
             p[i] = i;
     }
 
@@ -34,6 +38,7 @@ public class q21924_Kruskal {
 
     static class Edge implements Comparable<Edge> {
         int from, to, weight;
+
         public Edge(int from, int to, int weight) {
             this.from = from;
             this.to = to;
@@ -44,39 +49,44 @@ public class q21924_Kruskal {
         public int compareTo(Edge o) {
             return this.weight - o.weight;
         }
+
     }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        V = Integer.parseInt(st.nextToken());
-        int E = Integer.parseInt(st.nextToken());
-        List<Edge> elist = new ArrayList<>();
+        StringTokenizer st;
 
-        long total = 0;
-        while(E-- > 0) {
+        n = Integer.parseInt(br.readLine());
+        int[][] map = new int[n][n];
+        for(int i=0; i<n; i++) {
             st = new StringTokenizer(br.readLine());
-            int from = Integer.parseInt(st.nextToken()) - 1;
-            int to = Integer.parseInt(st.nextToken()) - 1;
-            int weight = Integer.parseInt(st.nextToken());
-            total += weight;
-            elist.add(new Edge(from, to, weight));
+            for(int j=0; j<n; j++)
+                map[i][j] = Integer.parseInt(st.nextToken());
         }
-        Collections.sort(elist);
-        makeSet();
+
+        List<Edge> elist = new ArrayList<>();
+        for(int i=0; i<n-1; i++)
+            for(int j=i+1; j<n; j++)
+                elist.add(new Edge(i, j, map[i][j]));	//간선 리스트이므로 무향 고려할 필요 없음~
+
+        boolean[] visited = new boolean[n];
+        int[] min = new int[n];
 
         int cnt = 0;
         long ans = 0;
+
+        Collections.sort(elist);
+        makeSet();
+
         for(Edge e : elist) {
             if(union(e.from, e.to)) {
                 ans += e.weight;
-                if(++cnt == V - 1)
+                if(++cnt == n-1)
                     break;
             }
         }
-        ans = cnt == V - 1 ? total - ans : -1;
-//        ans = total - ans;
+
         bw.write(ans + "");
         bw.flush();
         bw.close();

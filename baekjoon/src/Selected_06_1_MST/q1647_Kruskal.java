@@ -1,16 +1,17 @@
-package Selected_06_MST;
+package Selected_06_1_MST;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class q1922_Kruskal {
+public class q1647_Kruskal {
 
-    static int[] parents;
     static int V, E;
+    static int[] p;
     static Edge[] edgelist;
 
     static class Edge implements Comparable<Edge> {
@@ -27,39 +28,34 @@ public class q1922_Kruskal {
         }
     }
 
-    static void make() {    //크기가 1인 서로 소 집합 생성
-        parents = new int[V];
-        for(int i=0; i<V; i++) {    //모든 노드가 자신을 부모로 하는(대표자) 집합으로 만든다.
-            parents[i] = i;
-        }
+    static void make() {
+        p = new int[V];
+        for(int i=0; i<V; i++)
+            p[i] = i;
     }
 
     static int find(int a) {
-        if(parents[a] == a)
+        if(p[a] == a)
             return a;
-        return parents[a] = find(parents[a]);   //우리의 대표자를 나의 부모로 : path compression
+        return p[a] = find(p[a]);
     }
 
-    static boolean union(int a, int b) {    //리턴값 : true => union 성공
-        int aRoot = find(a);
-        int bRoot = find(b);
-
-        if(aRoot == bRoot)
+    static boolean union(int a, int b) {
+        int ar = find(a);
+        int br = find(b);
+        if(ar == br)
             return false;
-        parents[bRoot] = aRoot;
+        p[br] = ar;
         return true;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
 
-        int cnt;
-        long ans;
-
-        V = Integer.parseInt(br.readLine());
-        E = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        V = Integer.parseInt(st.nextToken());
+        E = Integer.parseInt(st.nextToken());
 
         edgelist = new Edge[E];
         for(int i=0; i<E; i++) {
@@ -70,16 +66,15 @@ public class q1922_Kruskal {
         Arrays.sort(edgelist);
         make();
 
-        cnt = 0;
-        ans = 0;
+        int cnt = 0;
+        long ans = 0;
         for(Edge e : edgelist) {
             if(union(e.from, e.to)) {
                 ans += e.weight;
-                if(++cnt == V-1)
+                if(++cnt == V-2)
                     break;
             }
         }
-
         bw.write(ans + "");
         bw.flush();
         bw.close();

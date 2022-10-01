@@ -1,4 +1,4 @@
-package Selected_06_MST;
+package Selected_06_1_MST;
 
 import java.io.*;
 import java.util.Arrays;
@@ -6,8 +6,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class q1197_Prim {
-
+public class q1647_Prim {
     static class Node implements Comparable<Node> {
         int no, weight;
         Node next;
@@ -30,36 +29,39 @@ public class q1197_Prim {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
 
-        int from, to, weight, cnt = 0, ans = 0;
-
-        int V = Integer.parseInt(br.readLine());
-        int E = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int V = Integer.parseInt(st.nextToken());
+        int E = Integer.parseInt(st.nextToken());
         Node[] nodes = new Node[V];
 
-        for(int i=0; i<E; i++) {
+        int from, to, weight, cnt = 0;
+        long ans = 0;
+
+        while(E-- > 0) {
             st = new StringTokenizer(br.readLine());
             from = Integer.parseInt(st.nextToken()) - 1;
             to = Integer.parseInt(st.nextToken()) - 1;
             weight = Integer.parseInt(st.nextToken());
             nodes[from] = new Node(to, weight, nodes[from]);
-            nodes[to] = new Node(from ,weight, nodes[to]);
+            nodes[to] = new Node(from , weight, nodes[to]);
         }
 
         Queue<Node> pq = new PriorityQueue<>();
         pq.offer(new Node(0, 0));
         boolean[] visited = new boolean[V];
-        int[] min = new int[V];
-        Arrays.fill(min, Integer.MAX_VALUE);
+        long[] min = new long[V];
+        Arrays.fill(min, Long.MAX_VALUE);
         min[0] = 0;
 
+        int max = 0;
         while(!pq.isEmpty()) {
             Node now = pq.poll();
             if(visited[now.no])
                 continue;
             visited[now.no] = true;
             ans += now.weight;
+            max = Math.max(max, now.weight);        //최장 길이가 초반에 연결될 수 있다. 단순히 마지막 V-1에서 break한다고 정답이 되진 않는다.
             if(++cnt == V)
                 break;
 
@@ -71,10 +73,13 @@ public class q1197_Prim {
             }
         }
 
+        ans -= max;
+
         bw.write(ans + "");
         bw.flush();
         bw.close();
         br.close();
 
     }
+
 }
