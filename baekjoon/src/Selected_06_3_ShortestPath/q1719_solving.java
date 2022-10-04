@@ -24,7 +24,6 @@ public class q1719_solving {
             this.weight = weight;
             this.next = next;
         }
-
         @Override
         public int compareTo(Node o) {
             return this.weight - o.weight;
