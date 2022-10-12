@@ -3,32 +3,28 @@ package Selected_07_Memoization;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class q1520_solving {
+public class q1520 {
 
     static int n, m;
     static int[][] map, dp;
     static int[][] drc = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
-    static boolean[][] visited;
     static boolean in(int r, int c) { return r >= 0 && r < n && c >= 0 && c < m; }
-    static void recur(int r, int c) {
+    static int recur(int r, int c) {
         if(r == n-1 && c == m-1)
-            return;
+            return 1;
 
-        if(visited[r][c])
-            return;
+        if(dp[r][c] != -1)
+            return dp[r][c];
 
+        dp[r][c] = 0;
         for(int i=0; i<4; i++) {
             int tr = r + drc[i][0];
             int tc = c + drc[i][1];
-            if(in(tr, tc) && map[r][c] > map[tr][tc]) {
-                if(dp[tr][tc] != -1)
-                    dp[r][c] += dp[tr][tc];
-                else {
-                    recur(tr, tc);
-                    dp[r][c] += dp[tr][tc];
-                }
-            }
+            if(in(tr, tc) && map[r][c] > map[tr][tc])
+                dp[r][c] += recur(tr, tc);
         }
+
+        return dp[r][c];
 
     }
 
@@ -42,7 +38,6 @@ public class q1520_solving {
 
         map = new int[n][m];
         dp = new int[n][m];
-        visited = new boolean[n][m];
 
         for(int i=0; i<n; i++) {
             st = new StringTokenizer(br.readLine());
@@ -52,9 +47,7 @@ public class q1520_solving {
             }
         }
 
-        recur(0, 0);
-
-        bw.write(dp[0][0] + "");
+        bw.write(recur(0, 0) + "");
         bw.flush();
         bw.close();
         br.close();
