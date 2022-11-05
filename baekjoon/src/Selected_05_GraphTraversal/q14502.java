@@ -29,14 +29,6 @@ public class q14502 {
             return;
         }
 
-//        for(int i=0; i<n; i++)
-//        	for(int j=0; j<m; j++)
-//        		if(arr[i][j] == 0) {
-//        			arr[i][j] = 1;
-//        			dfs(i, j, depth + 1, arr);
-//        			arr[i][j] = 0;
-//        		}
-
         r += c == m ? 1 : 0;
         c -= c == m ? m : 0;
         if(r>=n) return;
