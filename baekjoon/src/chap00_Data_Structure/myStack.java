@@ -1,7 +1,5 @@
 package chap00_Data_Structure;
 
-import chap00_Data_Structure.StackInterface;
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.EmptyStackException;
@@ -13,7 +11,7 @@ import java.util.EmptyStackException;
  * @param <E> the type of elements in this stack
  */
 
-public class Stack<E> implements StackInterface<E>, Cloneable {
+public class myStack<E> implements StackInterface<E>, Cloneable {
 
     private static final int DEFAULT_CAPACITY = 10;	// 최소(기본) 용적 크기
     private static final Object[] EMPTY_ARRAY = {};	// 빈 배열
@@ -23,13 +21,13 @@ public class Stack<E> implements StackInterface<E>, Cloneable {
 
 
     // 생성자1 (초기 공간 할당 X)
-    public Stack() {
+    public myStack() {
         this.array = EMPTY_ARRAY;
         this.size = 0;
     }
 
     // 생성자2 (초기 공간 할당 O)
-    public Stack(int capacity) {
+    public myStack(int capacity) {
         this.array = new Object[capacity];
         this.size = 0;
     }
@@ -158,7 +156,7 @@ public class Stack<E> implements StackInterface<E>, Cloneable {
     public Object clone() throws CloneNotSupportedException {
 
         // 새로운 스택 객체 생성
-        Stack<?> cloneStack = (Stack<?>) super.clone();
+        myStack<?> cloneStack = (myStack<?>) super.clone();
 
         // 새로운 스택의 배열도 생성해주어야 함(내부 객체는 깊은 복사가 되지 않기 때문)
         cloneStack.array = new Object[size];
