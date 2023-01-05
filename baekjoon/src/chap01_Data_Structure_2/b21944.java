@@ -101,6 +101,7 @@ public class b21944 {
     }
 
 }
+//    반성할 점 : 1) 자료구조 구현체의 메소드 정확히 인식, 2) 문제가 요구하는 사항 정확히 인식
 //import java.io.BufferedReader;
 //        import java.io.BufferedWriter;
 //        import java.io.IOException;
