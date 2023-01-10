@@ -7,6 +7,8 @@ import java.util.*;
  * 노드에 들어오는 간선의 수가 1개
  * 노드의 수 - 간선의 수 = 1
  */
+
+
 public class b6416 {
 
     public static void main(String[] args) {
