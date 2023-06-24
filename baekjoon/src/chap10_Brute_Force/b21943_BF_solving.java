@@ -2,7 +2,7 @@ package chap10_Brute_Force;
 
 import java.util.Scanner;
 // 풀이중
-public class b21943_BF {
+public class b21943_BF_solving {
 
     static int N, P, Q, ans = Integer.MIN_VALUE;
     static int[] num, selected;
