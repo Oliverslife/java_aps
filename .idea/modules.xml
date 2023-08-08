@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/baekjoon/baekjoon.iml" filepath="$PROJECT_DIR$/baekjoon/baekjoon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Baekjoon/Baekjoon.iml" filepath="$PROJECT_DIR$/Baekjoon/Baekjoon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/old_2/baekjoon.iml" filepath="$PROJECT_DIR$/old_2/baekjoon.iml" />
       <module fileurl="file://$PROJECT_DIR$/old/baekjoon.old.iml" filepath="$PROJECT_DIR$/old/baekjoon.old.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/java_baekjoon.iml" filepath="$PROJECT_DIR$/.idea/java_baekjoon.iml" />
     </modules>
