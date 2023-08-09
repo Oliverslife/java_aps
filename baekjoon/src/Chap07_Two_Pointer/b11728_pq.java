@@ -5,6 +5,9 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
+/**
+ * 단순 정렬 풀이
+ */
 public class b11728_pq {
 
     public static void main(String[] args) throws IOException {

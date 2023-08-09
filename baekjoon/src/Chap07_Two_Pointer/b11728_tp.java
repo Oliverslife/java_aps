@@ -3,6 +3,9 @@ package Chap07_Two_Pointer;
 import java.io.*;
 import java.util.StringTokenizer;
 
+/**
+ * Two Pointer 풀이
+ */
 public class b11728_tp {
 
     public static void main(String[] args) throws IOException {

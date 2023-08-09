@@ -1,8 +1,10 @@
+package Chap07_Two_Pointer;
+
 import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main {
+public class b2470 {
 
     public static void main(String[] args) throws IOException {
 
