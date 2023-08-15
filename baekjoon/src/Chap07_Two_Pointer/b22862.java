@@ -1,12 +1,14 @@
+package Chap07_Two_Pointer;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /**
- * solving...
+ * 포인터 위치 실수로 오래걸린 케이스... 꼼꼼히 확인하자
  */
-public class Main {
+public class b22862 {
 
     static int N, K;
     static int[] S;
