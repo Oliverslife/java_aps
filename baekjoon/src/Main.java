@@ -30,10 +30,11 @@ public class Main {
         while (end < N) {
 
             while (end < N && delete < K) {
-                if (S[end++] % 2 != 0)
+                if (S[end] % 2 != 0)
                     delete++;
                 else
                     len++;
+                end++;
             }
 
             while (end < N - 1 && S[end + 1] % 2 == 0) {
@@ -42,12 +43,14 @@ public class Main {
             }
 
             ans = Math.max(ans, len);
-            if (S[start++] % 2 != 0)
+
+            if (S[start] % 2 != 0)
                 delete--;
             else
                 len--;
+            start++;
         }
 
-        System.out.println(len);
+        System.out.println(ans);
     }
 }
