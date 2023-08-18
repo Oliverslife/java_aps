@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.StringTokenizer;
 
 /**
@@ -8,47 +6,21 @@ import java.util.StringTokenizer;
  */
 public class Main {
 
-    static int N, K;
-    static int[] S;
-
+    public static int stoi(String str) { return Integer.parseInt(str); }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        N = Integer.parseInt(st.nextToken());
-        K = Integer.parseInt(st.nextToken());
-        S = new int[N];
+        int N = stoi(st.nextToken());
+        int d = stoi(st.nextToken());
+        int k = stoi(st.nextToken());
+        int c = stoi(st.nextToken());
 
-        st = new StringTokenizer(br.readLine());
+        bw.write();
 
-        for (int i=0; i<N; i++)
-            S[i] = Integer.parseInt(st.nextToken());
-
+        bw.flush();
+        bw.close();
         br.close();
-
-        int start = 0, end = 0, delete = 0, len = 0, ans = 0;
-        while (end < N) {
-
-            while (delete < K && end < N) {
-                if (S[end++] % 2 != 0)  // 문제의 end++ 부분
-                    delete++;
-                else
-                    len++;
-            }
-
-            while (end < N - 1 && S[end] % 2 == 0) {    // 이 부분에서 end++를 고려하지 않고 S[end + 1] 을 검증하느라 틀렸었음.
-                end++;
-                len++;
-            }
-
-            ans = Math.max(ans, len);
-
-            if (S[start++] % 2 != 0)
-                delete--;
-            else
-                len--;
-        }
-
-        System.out.println(ans);
     }
 }
