@@ -1,4 +1,7 @@
 import java.io.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.StringTokenizer;
 
 /**
@@ -8,37 +11,31 @@ public class Main {
 
     public static int stoi(String str) { return Integer.parseInt(str); }
     public static void main(String[] args) throws IOException {
+
+        int N, S, start = 0, end = 0, sum = 0, ans = Integer.MAX_VALUE;
+        int[] arr;
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int N, d, k, c, tmp = 0, ans = 0;
-        int[] arr, selected;
+        N = Integer.parseInt(st.nextToken());
+        S = Integer.parseInt(st.nextToken());
+        arr = new int[N + 1];   // 마지막 값을 확인하기 위해 +1
 
-        N = stoi(st.nextToken());   // 회전 초밥 벨트에 놓은 접시의 수
-        d = stoi(st.nextToken());   // 초밥의 가짓수
-        k = stoi(st.nextToken());   // 연속해서 먹는 접시의 수
-        c = stoi(st.nextToken());   // 쿠폰 번호
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < N; i++)
+            arr[i] = Integer.parseInt(st.nextToken());
 
-        arr = new int[N];
-        selected = new int[d + 1];
+        Arrays.sort(arr);
 
-        for (int i=0; i<N; i++)
-            arr[i] = Integer.parseInt(br.readLine());
-
-        for (int i=0; i<k; i++) {
-            if (selected[arr[i]] == 0) tmp++;
-            selected[arr[i]]++;
+        while (end <= N) {
+            if (sum >= S) ans = Math.min(ans, end - start);
+            if (sum < S) sum += arr[end++];
+            else sum -= arr[start++];
         }
-        ans = selected[c] == 0 ? tmp + 1 : tmp;
 
-        for (int i=0; i<N; i++) {
-            if (selected[arr[(i + k) % N]] == 0) tmp++;
-            selected[arr[(i + k) % N]]++;
-            selected[arr[i]]--;
-            if (selected[arr[i]] == 0) tmp--;
-            ans = Math.max(ans, selected[c] == 0 ? tmp + 1 : tmp);
-        }
+        ans = ans == Integer.MAX_VALUE ? 0 : ans;
 
         bw.write(ans + "");
 
