@@ -30,9 +30,12 @@ public class Main {
         Arrays.sort(arr);
 
         while (end <= N) {
-            if (sum >= S) ans = Math.min(ans, end - start);
             if (sum < S) sum += arr[end++];
-            else sum -= arr[start++];
+            else {
+                ans = Math.min(ans, end - start);
+                sum -= arr[start++];
+            }
+
         }
 
         ans = ans == Integer.MAX_VALUE ? 0 : ans;
