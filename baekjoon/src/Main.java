@@ -27,15 +27,14 @@ public class Main {
         for (int i = 0; i < N; i++)
             arr[i] = Integer.parseInt(st.nextToken());
 
-        Arrays.sort(arr);
+//        Arrays.sort(arr); 와 이것때문에 며칠을...
 
         while (end <= N) {
             if (sum < S) sum += arr[end++];
-            else {
+            else if (sum >= S) {
                 ans = Math.min(ans, end - start);
                 sum -= arr[start++];
             }
-
         }
 
         ans = ans == Integer.MAX_VALUE ? 0 : ans;
