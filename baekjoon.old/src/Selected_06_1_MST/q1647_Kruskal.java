@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
-
+// Failed 97%
 public class q1647_Kruskal {
 
     static int V, E;
