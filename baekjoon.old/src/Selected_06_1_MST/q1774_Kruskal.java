@@ -2,7 +2,7 @@ package Selected_06_1_MST;
 
 import java.io.*;
 import java.util.*;
-
+// Failed 79%
 public class q1774_Kruskal {
     static int V;
     static int[] p;
